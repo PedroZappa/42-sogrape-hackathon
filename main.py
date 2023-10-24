@@ -6,18 +6,22 @@
 #    By: passunca <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/24 08:48:10 by passunca          #+#    #+#              #
-#    Updated: 2023/10/24 19:45:20 by zedr0            ###   ########.fr        #
+#    Updated: 2023/10/24 20:03:19 by zedr0            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 import streamlit as st
 import pandas as pd
 import datetime
+from forex_python.converter import CurrencyRates
 
 # Import DB
 df = pd.read_csv("MOCK_DATA2.csv")
 stores_list = df["Store Name"].unique()
 stores_location = df["Location"].unique()
+
+# Init currency converter
+c = CurrencyRates()
 
 # App Header
 st.header("Hack'a'Wine Dashboard 🍷")
@@ -38,9 +42,9 @@ with st.sidebar:
     
     selected_date_range = st.slider(
         "by Harvest Date ⏲", 
-        min_value=float(df["Harvest Year"].min()),
-        max_value=float(df["Harvest Year"].max()),
-        value=(float(df["Harvest Year"].min()), float(df["Harvest Year"].max())),
+        min_value=int(df["Harvest Year"].min()),
+        max_value=int(df["Harvest Year"].max()),
+        value=(int(df["Harvest Year"].min()), int(df["Harvest Year"].max())),
         key="harvest-date-slider" 
     )
     selected_price_range = st.slider(
@@ -73,9 +77,9 @@ with scrapper_tab:
         # Prices Charts
         with st.expander("Price Graphs 📊"):
             st.write("Prices by Location 📍")
-            st.bar_chart(df, x="Location", y="Price")
-            st.write("Prices by Wine Name 🍷")
-            st.bar_chart(df, x="Wine Name", y="Price")
+            st.bar_chart(df, x="Price", y="Location")
+            st.write("Prices by Store 🍷")
+            st.bar_chart(df, x="Store Name", y="Price")
     # Right column
     with scrapper_col2:
             # Capacity Chart
