@@ -6,7 +6,7 @@
 #    By: passunca <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/24 08:48:10 by passunca          #+#    #+#              #
-#    Updated: 2023/10/24 11:45:27 by passunca         ###   ########.fr        #
+#    Updated: 2023/10/24 12:16:48 by passunca         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,20 @@ scrapper_tab, analyser_tab = st.tabs(["Scrapper", "Analyser"])
 # Init Cols
 scrapper_col1, scrapper_col2 = scrapper_tab.columns(2)
 analyser_col1, anaylser_col2 = scrapper_tab.columns(2)
+
+# Data
+stores = ["Store 1", "Store 2", "Store 3"]
+
+with st.sidebar:
+    st.header("Filter Wine Data")
+    st.selectbox('Filter by Store', stores)
+    st.title("Filter by Location")
+    st.selectbox('Filter by Location', stores)
+    
+    st.title("Filter by Harvest Date")
+    st.slider("Select", 0, 10, 5)
+
+    st.title("Filter by Harvest Price")
 
 with scrapper_tab:
     st.header("Data Scrapper")
