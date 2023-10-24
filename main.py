@@ -6,7 +6,7 @@
 #    By: passunca <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/24 08:48:10 by passunca          #+#    #+#              #
-#    Updated: 2023/10/24 14:53:54 by passunca         ###   ########.fr        #
+#    Updated: 2023/10/24 15:44:08 by passunca         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ stores_list = df["Store Name"].unique()
 stores_location = df["Location"].unique()
 
 # App Header
-st.header("Hack'a'Wine Dashboard")
+st.header("Hack'a'Wine Dashboard 🍷")
 
 # Init Tabs
 scrapper_tab, analyser_tab = st.tabs(["Scrapper", "Analyser"])
@@ -32,17 +32,17 @@ analyser_col1, anaylser_col2 = scrapper_tab.columns(2)
 # Data
 with st.sidebar:
     st.header("Filter Wine Data")
-    selected_store = st.multiselect('by Store', stores_list)
-    selected_location = st.multiselect('by Location', stores_location)
+    selected_store = st.multiselect('by Store 🏪', stores_list)
+    selected_location = st.multiselect('by Location 🗺', stores_location)
 
     st.slider(
-        "by Harvest Date", 
+        "by Harvest Date ⏲", 
         min_value=df["Harvest Year"].min(),
         max_value=df["Harvest Year"].max(),
         key="harvest-date-slider" 
     )
     st.slider(
-        "by Price",
+        "by Price 💰",
         min_value=df["Price"].min(),
         max_value=df["Price"].max(),
         key="price-slider"
@@ -50,6 +50,7 @@ with st.sidebar:
 
 # Scrapper TAB
 with scrapper_tab:
+    # Raw Data Table
     with st.expander("View Raw Data"):
         st.dataframe(
             df,
@@ -59,7 +60,14 @@ with scrapper_tab:
     # Prices Chart
     with st.expander("Prices Chart"):
         st.title("Prices Overview")
+        st.bar_chart(df, x="Location", y="Price")
         st.area_chart(df, y="Price")
+
+        # Capacity Chart
+    with st.expander("Capacity Chart"):
+        st.title("Capacity Overview")
+        st.bar_chart(df, x="Capacity", y="Wine Name")
+
 
 # Analyser TAB
 with analyser_tab:
