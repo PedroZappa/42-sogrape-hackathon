@@ -6,7 +6,7 @@
 #    By: passunca <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/24 08:48:10 by passunca          #+#    #+#              #
-#    Updated: 2023/10/24 16:46:58 by passunca         ###   ########.fr        #
+#    Updated: 2023/10/24 19:45:20 by zedr0            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,8 +36,22 @@ with st.sidebar:
     selected_store = st.multiselect('by Store 🏪', stores_list)
     selected_location = st.multiselect('by Location 🗺', stores_location)
     
+    selected_date_range = st.slider(
+        "by Harvest Date ⏲", 
+        min_value=float(df["Harvest Year"].min()),
+        max_value=float(df["Harvest Year"].max()),
+        value=(float(df["Harvest Year"].min()), float(df["Harvest Year"].max())),
+        key="harvest-date-slider" 
+    )
+    selected_price_range = st.slider(
+        "by Price 💰",
+        min_value=float(df["Price"].min()),
+        max_value=float(df["Price"].max()),
+        value=(float(df["Price"].min()), float(df["Price"].max())),
+        key="price-slider"
+    )
+
     filtered_df = df
-    
     # Wine Filter
     if selected_wine:
         filtered_df = filtered_df[(filtered_df['Wine Name'].isin(selected_wine))]
@@ -47,46 +61,37 @@ with st.sidebar:
     # Location Filter
     if selected_location:
         filtered_df = filtered_df[(filtered_df['Location'].isin(selected_location))]
-
-    st.slider(
-        "by Harvest Date ⏲", 
-        min_value=df["Harvest Year"].min(),
-        max_value=df["Harvest Year"].max(),
-        value=(df["Harvest Year"].min(), df["Harvest Year"].max()),
-        key="harvest-date-slider" 
-    )
-    st.slider(
-        "by Price 💰",
-        min_value=df["Price"].min(),
-        max_value=df["Price"].max(),
-        value=(df["Price"].min(), df["Price"].max()),
-        key="price-slider"
-    )
+    # Harvest Year Filter
+    filtered_df = filtered_df[(filtered_df['Harvest Year'] >= selected_date_range[0]) & (filtered_df['Harvest Year'] <= selected_date_range[1])]
+    # Price Filter
+    filtered_df = filtered_df[(filtered_df['Price'] >= selected_price_range[0]) & (filtered_df['Price'] <= selected_price_range[1])]
 
 # Scrapper TAB
 with scrapper_tab:
-    # Raw Data Table
-    with st.expander("View Raw Data"):
-        st.dataframe(
-            filtered_df,
-            hide_index=True,
-        )
-
-    # Prices Charts
-    with st.expander("Prices Charts"):
-        st.title("Prices by Location")
-        st.bar_chart(df, x="Location", y="Price")
-        st.title("Prices by Wine Name")
-        st.bar_chart(df, x="Wine Name", y="Price")
-        st.area_chart(df, y="Price")
-
-        # Capacity Chart
-    with st.expander("Capacity Charts"):
-        st.title("Capacity Overview")
-        st.bar_chart(df, x="Capacity", y="Wine Name")
+    # Left column
+    with scrapper_col1:
+        # Prices Charts
+        with st.expander("Price Graphs 📊"):
+            st.write("Prices by Location 📍")
+            st.bar_chart(df, x="Location", y="Price")
+            st.write("Prices by Wine Name 🍷")
+            st.bar_chart(df, x="Wine Name", y="Price")
+    # Right column
+    with scrapper_col2:
+            # Capacity Chart
+        with st.expander("Capacity Graphs 📊"):
+            st.title("Capacity Overview")
+            st.bar_chart(df, x="Capacity", y="Wine Name")
 
 
 # Analyser TAB
 with analyser_tab:
-    st.header("Data Analyser")
+    # Raw Data Table
+    with st.expander("View Raw Data 🧾"):
+        st.dataframe(
+            filtered_df,
+            hide_index=True,
+        )
+    
+    st.area_chart(df, y="Price")
 
