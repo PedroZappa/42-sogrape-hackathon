@@ -6,7 +6,7 @@
 #    By: passunca <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/24 08:48:10 by passunca          #+#    #+#              #
-#    Updated: 2023/10/24 14:32:57 by passunca         ###   ########.fr        #
+#    Updated: 2023/10/24 14:53:54 by passunca         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,18 +19,22 @@ df = pd.read_csv("MOCK_DATA2.csv")
 stores_list = df["Store Name"].unique()
 stores_location = df["Location"].unique()
 
+# App Header
+st.header("Hack'a'Wine Dashboard")
+
 # Init Tabs
 scrapper_tab, analyser_tab = st.tabs(["Scrapper", "Analyser"])
 # Init Cols
 scrapper_col1, scrapper_col2 = scrapper_tab.columns(2)
 analyser_col1, anaylser_col2 = scrapper_tab.columns(2)
 
+
 # Data
 with st.sidebar:
     st.header("Filter Wine Data")
-    selected_store = st.selectbox('by Store', stores_list)
-    selected_location = st.selectbox('by Location', stores_location)
-    
+    selected_store = st.multiselect('by Store', stores_list)
+    selected_location = st.multiselect('by Location', stores_location)
+
     st.slider(
         "by Harvest Date", 
         min_value=df["Harvest Year"].min(),
@@ -53,8 +57,9 @@ with scrapper_tab:
         )
 
     # Prices Chart
-    st.title("Prices Overview")
-    st.area_chart(df, y="Price")
+    with st.expander("Prices Chart"):
+        st.title("Prices Overview")
+        st.area_chart(df, y="Price")
 
 # Analyser TAB
 with analyser_tab:
