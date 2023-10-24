@@ -6,7 +6,7 @@
 #    By: passunca <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/24 08:48:10 by passunca          #+#    #+#              #
-#    Updated: 2023/10/24 12:46:55 by passunca         ###   ########.fr        #
+#    Updated: 2023/10/24 13:38:14 by passunca         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,16 +27,20 @@ analyser_col1, anaylser_col2 = scrapper_tab.columns(2)
 # Data
 with st.sidebar:
     st.header("Filter Wine Data")
-    st.divider()
+    st.title("Filter by Date")
     st.selectbox('Filter by Store', stores_list)
 
-    st.title("Filter by Location")
     st.selectbox('Filter by Location', stores_location)
     
-    st.title("Filter by Harvest Date")
-    st.slider("Date", key="harvest-date-slider" )
+    st.title("Filter by Date")
+    st.slider(
+        "Harvest Date", 
+        min_value=df["Harvest Year"].min(),
+        max_value=df["Harvest Year"].max(),
+        key="harvest-date-slider" 
+    )
 
-    st.title("Filter by Harvest Price")
+    st.slider("Scrapping Date", key="scrapping-date-slider" )
 
     # Scrapper TAB
 with scrapper_tab:
