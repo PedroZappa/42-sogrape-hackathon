@@ -6,7 +6,7 @@
 #    By: passunca <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/24 08:48:10 by passunca          #+#    #+#              #
-#    Updated: 2023/10/24 15:44:08 by passunca         ###   ########.fr        #
+#    Updated: 2023/10/24 16:17:22 by passunca         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,8 +32,28 @@ analyser_col1, anaylser_col2 = scrapper_tab.columns(2)
 # Data
 with st.sidebar:
     st.header("Filter Wine Data")
+    selected_wine = st.multiselect('by Wine Name 🍷', df["Wine Name"].unique())
     selected_store = st.multiselect('by Store 🏪', stores_list)
     selected_location = st.multiselect('by Location 🗺', stores_location)
+    
+    # Wine Filter
+    filtered_wine = df[(df['Wine Name'].isin(selected_wine))]
+    if selected_wine:
+        filtered_wine = df[(df['Wine Name'].isin(selected_wine))]
+    else:
+        filtered_wine = df
+    # Store Filter
+    filtered_store = df[(df['Store Name'].isin(selected_store))]
+    if selected_store:  
+        filtered_store = df[(df['Store Name'].isin(selected_store))]
+    else: 
+        filtered_store = df
+    # Location Filter
+    filtered_location = df[(df['Location'].isin(selected_location))]
+    if selected_location:
+        filtered_location = df[(df['Location'].isin(selected_location))]
+    else:
+        filtered_location = df
 
     st.slider(
         "by Harvest Date ⏲", 
@@ -53,14 +73,16 @@ with scrapper_tab:
     # Raw Data Table
     with st.expander("View Raw Data"):
         st.dataframe(
-            df,
+            filtered_store,
             hide_index=True,
         )
 
     # Prices Chart
     with st.expander("Prices Chart"):
-        st.title("Prices Overview")
+        st.title("Prices by Location")
         st.bar_chart(df, x="Location", y="Price")
+        st.title("Prices by Wine Name")
+        st.bar_chart(df, x="Wine Name", y="Price")
         st.area_chart(df, y="Price")
 
         # Capacity Chart
