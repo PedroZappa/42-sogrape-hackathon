@@ -6,7 +6,7 @@
 #    By: passunca <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/24 08:48:10 by passunca          #+#    #+#              #
-#    Updated: 2023/10/24 12:21:58 by passunca         ###   ########.fr        #
+#    Updated: 2023/10/24 12:46:55 by passunca         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ import pandas as pd
 # Import DB
 df = pd.read_csv("MOCK_DATA2.csv")
 stores_list = df["Store Name"].unique()
+stores_location = df["Location"].unique()
 
 # Init Tabs
 scrapper_tab, analyser_tab = st.tabs(["Scrapper", "Analyser"])
@@ -24,28 +25,25 @@ scrapper_col1, scrapper_col2 = scrapper_tab.columns(2)
 analyser_col1, anaylser_col2 = scrapper_tab.columns(2)
 
 # Data
-stores = ["Store 1", "Store 2", "Store 3"]
-
 with st.sidebar:
     st.header("Filter Wine Data")
+    st.divider()
     st.selectbox('Filter by Store', stores_list)
+
     st.title("Filter by Location")
-    st.selectbox('Filter by Location', stores)
+    st.selectbox('Filter by Location', stores_location)
     
     st.title("Filter by Harvest Date")
-    st.slider("Select", 0, 10, 5)
+    st.slider("Date", key="harvest-date-slider" )
 
     st.title("Filter by Harvest Price")
 
+    # Scrapper TAB
 with scrapper_tab:
     st.header("Data Scrapper")
-    df = pd.DataFrame({
-        'first column': [1, 2, 3, 4],
-        'second column': [10, 20, 30, 40]
-    })
+    st.dataframe(df)
 
-df
-
+# Analyser TAB
 with analyser_tab:
     st.header("Data Analyser")
 
