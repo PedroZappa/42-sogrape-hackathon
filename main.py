@@ -6,7 +6,7 @@
 #    By: passunca <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/24 08:48:10 by passunca          #+#    #+#              #
-#    Updated: 2023/10/24 20:08:40 by zedr0            ###   ########.fr        #
+#    Updated: 2023/10/24 20:18:34 by zedr0            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,11 @@ scrapper_tab, analyser_tab = st.tabs(["Scrapper", "Analyser"])
 scrapper_col1, scrapper_col2 = scrapper_tab.columns(2)
 analyser_col1, anaylser_col2 = scrapper_tab.columns(2)
 
+# Calculations
+# Get price average by store 
+average_prices = df.groupby('Store Name')['Price'].mean()
+# Convert Series into DataFrame
+average_prices_df = average_prices.reset_index()
 
 # Data
 with st.sidebar:
@@ -76,10 +81,10 @@ with scrapper_tab:
     with scrapper_col1:
         # Prices Charts
         with st.expander("Price Graphs 📊"):
+            st.write("Average Price by Store 🪙")
+            st.bar_chart(average_prices_df, x="Store Name", y="Price")
             st.write("Prices by Location 📍")
             st.bar_chart(filtered_df, x="Price", y="Location")
-            st.write("Prices by Store 🍷")
-            st.bar_chart(filtered_df, x="Store Name", y="Price")
     # Right column
     with scrapper_col2:
             # Capacity Chart
