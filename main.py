@@ -6,12 +6,16 @@
 #    By: passunca <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/24 08:48:10 by passunca          #+#    #+#              #
-#    Updated: 2023/10/24 12:16:48 by passunca         ###   ########.fr        #
+#    Updated: 2023/10/24 12:21:58 by passunca         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 import streamlit as st
 import pandas as pd
+
+# Import DB
+df = pd.read_csv("MOCK_DATA2.csv")
+stores_list = df["Store Name"].unique()
 
 # Init Tabs
 scrapper_tab, analyser_tab = st.tabs(["Scrapper", "Analyser"])
@@ -24,7 +28,7 @@ stores = ["Store 1", "Store 2", "Store 3"]
 
 with st.sidebar:
     st.header("Filter Wine Data")
-    st.selectbox('Filter by Store', stores)
+    st.selectbox('Filter by Store', stores_list)
     st.title("Filter by Location")
     st.selectbox('Filter by Location', stores)
     
