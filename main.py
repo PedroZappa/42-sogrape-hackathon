@@ -6,7 +6,7 @@
 #    By: passunca <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/24 08:48:10 by passunca          #+#    #+#              #
-#    Updated: 2023/10/24 20:03:19 by zedr0            ###   ########.fr        #
+#    Updated: 2023/10/24 20:08:40 by zedr0            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -77,15 +77,15 @@ with scrapper_tab:
         # Prices Charts
         with st.expander("Price Graphs 📊"):
             st.write("Prices by Location 📍")
-            st.bar_chart(df, x="Price", y="Location")
+            st.bar_chart(filtered_df, x="Price", y="Location")
             st.write("Prices by Store 🍷")
-            st.bar_chart(df, x="Store Name", y="Price")
+            st.bar_chart(filtered_df, x="Store Name", y="Price")
     # Right column
     with scrapper_col2:
             # Capacity Chart
         with st.expander("Capacity Graphs 📊"):
-            st.title("Capacity Overview")
-            st.bar_chart(df, x="Capacity", y="Wine Name")
+            st.write("Capacity Overview")
+            st.bar_chart(filtered_df, x="Capacity", y="Store Name")
 
 
 # Analyser TAB
