@@ -6,7 +6,7 @@
 #    By: passunca <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/24 08:48:10 by passunca          #+#    #+#              #
-#    Updated: 2023/10/24 13:59:24 by passunca         ###   ########.fr        #
+#    Updated: 2023/10/24 14:32:57 by passunca         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,22 +28,33 @@ analyser_col1, anaylser_col2 = scrapper_tab.columns(2)
 # Data
 with st.sidebar:
     st.header("Filter Wine Data")
-    st.title("Filter by Store")
-    st.selectbox('Filter by Store', stores_list)
-    st.selectbox('Filter by Location', stores_location)
+    selected_store = st.selectbox('by Store', stores_list)
+    selected_location = st.selectbox('by Location', stores_location)
     
-    st.title("Filter by Date")
     st.slider(
-        "Harvest Date", 
+        "by Harvest Date", 
         min_value=df["Harvest Year"].min(),
         max_value=df["Harvest Year"].max(),
         key="harvest-date-slider" 
     )
+    st.slider(
+        "by Price",
+        min_value=df["Price"].min(),
+        max_value=df["Price"].max(),
+        key="price-slider"
+    )
 
-    # Scrapper TAB
+# Scrapper TAB
 with scrapper_tab:
-    st.header("Data Scrapper")
-    st.dataframe(df)
+    with st.expander("View Raw Data"):
+        st.dataframe(
+            df,
+            hide_index=True,
+        )
+
+    # Prices Chart
+    st.title("Prices Overview")
+    st.area_chart(df, y="Price")
 
 # Analyser TAB
 with analyser_tab:
