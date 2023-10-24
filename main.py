@@ -6,7 +6,7 @@
 #    By: passunca <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/24 08:48:10 by passunca          #+#    #+#              #
-#    Updated: 2023/10/24 16:17:22 by passunca         ###   ########.fr        #
+#    Updated: 2023/10/24 16:41:30 by passunca         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,35 +36,30 @@ with st.sidebar:
     selected_store = st.multiselect('by Store 🏪', stores_list)
     selected_location = st.multiselect('by Location 🗺', stores_location)
     
+    filtered_df = df
+    
     # Wine Filter
-    filtered_wine = df[(df['Wine Name'].isin(selected_wine))]
     if selected_wine:
-        filtered_wine = df[(df['Wine Name'].isin(selected_wine))]
-    else:
-        filtered_wine = df
+        filtered_df = filtered_df[(filtered_df['Wine Name'].isin(selected_wine))]
     # Store Filter
-    filtered_store = df[(df['Store Name'].isin(selected_store))]
     if selected_store:  
-        filtered_store = df[(df['Store Name'].isin(selected_store))]
-    else: 
-        filtered_store = df
+        filtered_df = filtered_df[(filtered_df['Store Name'].isin(selected_store))]
     # Location Filter
-    filtered_location = df[(df['Location'].isin(selected_location))]
     if selected_location:
-        filtered_location = df[(df['Location'].isin(selected_location))]
-    else:
-        filtered_location = df
+        filtered_df = filtered_df[(filtered_df['Location'].isin(selected_location))]
 
     st.slider(
         "by Harvest Date ⏲", 
         min_value=df["Harvest Year"].min(),
         max_value=df["Harvest Year"].max(),
+        value=(df["Harvest Year"].min(), df["Harvest Year"].max()),
         key="harvest-date-slider" 
     )
     st.slider(
         "by Price 💰",
         min_value=df["Price"].min(),
         max_value=df["Price"].max(),
+        value=(df["Price"].min(), df["Price"].max()),
         key="price-slider"
     )
 
@@ -73,7 +68,7 @@ with scrapper_tab:
     # Raw Data Table
     with st.expander("View Raw Data"):
         st.dataframe(
-            filtered_store,
+            filtered_df,
             hide_index=True,
         )
 
