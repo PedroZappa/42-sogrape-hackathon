@@ -6,7 +6,7 @@
 #    By: passunca <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/24 08:48:10 by passunca          #+#    #+#              #
-#    Updated: 2023/10/24 16:41:30 by passunca         ###   ########.fr        #
+#    Updated: 2023/10/24 16:46:58 by passunca         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -72,8 +72,8 @@ with scrapper_tab:
             hide_index=True,
         )
 
-    # Prices Chart
-    with st.expander("Prices Chart"):
+    # Prices Charts
+    with st.expander("Prices Charts"):
         st.title("Prices by Location")
         st.bar_chart(df, x="Location", y="Price")
         st.title("Prices by Wine Name")
@@ -81,7 +81,7 @@ with scrapper_tab:
         st.area_chart(df, y="Price")
 
         # Capacity Chart
-    with st.expander("Capacity Chart"):
+    with st.expander("Capacity Charts"):
         st.title("Capacity Overview")
         st.bar_chart(df, x="Capacity", y="Wine Name")
 
