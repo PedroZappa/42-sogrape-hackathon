@@ -6,7 +6,7 @@
 #    By: passunca <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/24 08:48:10 by passunca          #+#    #+#              #
-#    Updated: 2023/10/25 09:39:24 by passunca         ###   ########.fr        #
+#    Updated: 2023/10/25 10:00:24 by passunca         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,8 +24,8 @@ stores_location = df["Location"].unique()
 c = CurrencyRates()
 
 # Session State
-if 'update_db' not in st.session_state:
-    st.session_state.update_db = False
+# if 'update_db' not in st.session_state:
+#     st.session_state.update_db = False
 
 
 # App Header
@@ -64,7 +64,10 @@ with st.sidebar:
         value=(float(df["Price"].min()), float(df["Price"].max())),
         key="price-slider"
     )
-    st.button("Update DB 🔄", on_click=st.session_state.update_db)
+    st.button(
+        "Update DB 🔄", 
+        # on_click=None
+    )
 
     filtered_df = df
     # Wine Filter
@@ -80,6 +83,10 @@ with st.sidebar:
     filtered_df = filtered_df[(filtered_df['Harvest Year'] >= selected_date_range[0]) & (filtered_df['Harvest Year'] <= selected_date_range[1])]
     # Price Filter
     filtered_df = filtered_df[(filtered_df['Price'] >= selected_price_range[0]) & (filtered_df['Price'] <= selected_price_range[1])]
+    # Filtered Discount (show only True)
+    discount_true = filtered_df['Discount'] == True
+    filtered_df_discount = filtered_df.loc[discount_true ]
+
 
 # Scrapper TAB
 with scrapper_tab:
@@ -92,14 +99,21 @@ with scrapper_tab:
 
 # Analyser TAB
 with analyser_tab:
+    # Price Graphs
+    with st.expander("Price Graphs 📊"):
+        st.write("Prices by Location 📍")
+        st.bar_chart(filtered_df, x="Price", y="Location")
+        st.write("Average Price by Store 🪙")
+        st.bar_chart(average_prices_df, x="Store Name", y="Price")
+        st.write("Price by Harvest Year 🪙")
+        st.bar_chart(filtered_df_discount, x="Harvest Year", y="Price")
     # Left column
     with scrapper_col1:
-        # Prices Charts
-        with st.expander("Price Graphs 📊"):
-            st.write("Prices by Location 📍")
-            st.bar_chart(filtered_df, x="Price", y="Location")
-            st.write("Average Price by Store 🪙")
-            st.bar_chart(average_prices_df, x="Store Name", y="Price")
+        with st.expander("Discount Graphs 📊"):
+            # Discount Charts
+            st.write("Discounts by Store 🪙")
+            st.bar_chart(filtered_df, x="Store Name", y="Discount")
+
     # Right column
     with scrapper_col2:
             # Capacity Chart
