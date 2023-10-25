@@ -6,7 +6,7 @@
 #    By: passunca <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/24 08:48:10 by passunca          #+#    #+#              #
-#    Updated: 2023/10/25 09:24:06 by passunca         ###   ########.fr        #
+#    Updated: 2023/10/25 09:39:24 by passunca         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ import datetime
 from forex_python.converter import CurrencyRates
 
 # Import DB
-df = pd.read_csv("MOCK_DATA2.csv")
+df = pd.read_csv("assets/MOCK_DATA2.csv")
 stores_list = df["Store Name"].unique()
 stores_location = df["Location"].unique()
 
@@ -64,6 +64,7 @@ with st.sidebar:
         value=(float(df["Price"].min()), float(df["Price"].max())),
         key="price-slider"
     )
+    st.button("Update DB 🔄", on_click=st.session_state.update_db)
 
     filtered_df = df
     # Wine Filter
@@ -80,10 +81,17 @@ with st.sidebar:
     # Price Filter
     filtered_df = filtered_df[(filtered_df['Price'] >= selected_price_range[0]) & (filtered_df['Price'] <= selected_price_range[1])]
 
-
 # Scrapper TAB
 with scrapper_tab:
-    st.button("Update DB 🔄", on_click=st.session_state.update_db)
+    # Raw Data Table
+    with st.expander("View Raw Data 🧾"):
+        st.dataframe(
+            filtered_df,
+            hide_index=True,
+        )
+
+# Analyser TAB
+with analyser_tab:
     # Left column
     with scrapper_col1:
         # Prices Charts
@@ -98,16 +106,6 @@ with scrapper_tab:
         with st.expander("Capacity Graphs 📊"):
             st.write("Capacity Overview")
             st.bar_chart(filtered_df, x="Capacity", y="Store Name")
-
-
-# Analyser TAB
-with analyser_tab:
-    # Raw Data Table
-    with st.expander("View Raw Data 🧾"):
-        st.dataframe(
-            filtered_df,
-            hide_index=True,
-        )
     
     st.area_chart(df, y="Price")
 
