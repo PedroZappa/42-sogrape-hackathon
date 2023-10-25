@@ -6,7 +6,7 @@
 #    By: passunca <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/24 08:48:10 by passunca          #+#    #+#              #
-#    Updated: 2023/10/25 10:23:45 by passunca         ###   ########.fr        #
+#    Updated: 2023/10/25 10:31:59 by passunca         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,6 +45,7 @@ average_prices_df = average_prices.reset_index()
 
 # Data
 with st.sidebar:
+    st.image("assets/logo.png")
     st.header("Filter Wine Data")
     selected_wine = st.multiselect('by Wine Name 🍷', df["Wine Name"].unique())
     selected_store = st.multiselect('by Store 🏪', stores_list)
