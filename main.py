@@ -6,7 +6,7 @@
 #    By: passunca <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/24 08:48:10 by passunca          #+#    #+#              #
-#    Updated: 2023/10/25 10:08:46 by passunca         ###   ########.fr        #
+#    Updated: 2023/10/25 10:20:36 by passunca         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ c = CurrencyRates()
 st.header("Hack'a'Wine Dashboard 🍷")
 
 # Init Tabs
-scrapper_tab, analyser_tab = st.tabs(["Scrapper", "Analyser"])
+scrapper_tab, analyser_tab = st.tabs(["Scraper", "Analyser"])
 # Init Cols
 scrapper_col1, scrapper_col2 = scrapper_tab.columns(2)
 analyser_col1, analyser_col2 = analyser_tab.columns(2)
@@ -65,7 +65,7 @@ with st.sidebar:
         key="price-slider"
     )
     st.button(
-        "Update DB 🔄", 
+        "Scrape & Update DB 🔄", 
         # on_click=None
     )
 
@@ -88,7 +88,7 @@ with st.sidebar:
     filtered_df_discount = filtered_df.loc[discount_true ]
 
 
-# Scrapper TAB
+# Scraper TAB
 with scrapper_tab:
     st.dataframe(
         filtered_df,
