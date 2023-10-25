@@ -1,5 +1,10 @@
 # Sogrape-Hackathon
 
+# Table of Contents
+- [About](#about)
+- [Usage](#usage)
+- [Dependencies](#dependencies)
+
 # About
 
 - `Hack'a'Wine` is a Data Visualization app that allows users to explore and filter through wine prices over a range of brands on sale on several online and retail stores.
@@ -35,5 +40,5 @@ streamlit run main.py
 
 - Streamlit (UI)
 - pandas (Table Manipulation)
-- datetime 
+- datetime (Datetime Information)
 
