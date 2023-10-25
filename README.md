@@ -2,8 +2,8 @@
 
 # About
 
-- Hack'a'Wine is a Data Visualization app that allows users to explore and filter wine prices over a range of brands for sale on several online and retail stores.
-- It leverages streamlit to create responsive dashboard.
+- `Hack'a'Wine` is a Data Visualization app that allows users to explore and filter through wine prices over a range of brands on sale on several online and retail stores.
+- It leverages (https://streamlit.io/)[streamlit] to create responsive dashboard.
 
 # Usage
 

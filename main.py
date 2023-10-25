@@ -6,27 +6,22 @@
 #    By: passunca <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/24 08:48:10 by passunca          #+#    #+#              #
-#    Updated: 2023/10/25 10:35:19 by passunca         ###   ########.fr        #
+#    Updated: 2023/10/25 10:41:52 by passunca         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 import streamlit as st
 import pandas as pd
 import datetime
-from forex_python.converter import CurrencyRates
 
 # Import DB
 df = pd.read_csv("assets/MOCK_DATA2.csv")
 stores_list = df["Store Name"].unique()
 stores_location = df["Location"].unique()
 
-# Init currency converter
-c = CurrencyRates()
-
 # Session State
 # if 'update_db' not in st.session_state:
 #     st.session_state.update_db = False
-
 
 # App Header
 st.header("Hack'a'Wine Dashboard 🍷")
