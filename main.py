@@ -6,7 +6,7 @@
 #    By: passunca <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/24 08:48:10 by passunca          #+#    #+#              #
-#    Updated: 2023/10/25 10:41:52 by passunca         ###   ########.fr        #
+#    Updated: 2023/10/25 11:59:17 by passunca         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,24 @@ import datetime
 df = pd.read_csv("assets/MOCK_DATA2.csv")
 stores_list = df["Store Name"].unique()
 stores_location = df["Location"].unique()
+
+# DB Connection
+conn = st.experimental_connection('sogrape', type='sql')
+# Insert some data with conn.session.
+with conn.session as s:
+    s.execute('CREATE TABLE IF NOT EXISTS wine_table (person TEXT, pet TEXT);')
+    s.execute('DELETE FROM pet_owners;')
+    wine_table = {'store_name', 'wine_name', 'price', 'price_currency', 'discount', 'capacity', 'scraping_date', 'location'}
+    for k in pet_owners:
+        s.execute(
+            'INSERT INTO pet_owners (person, pet) VALUES (:owner, :pet);',
+            params=dict(owner=k, pet=pet_owners[k])
+        )
+    s.commit()
+
+# Query and display the data you inserted
+pet_owners = conn.query('select * from pet_owners')
+st.dataframe(pet_owners)
 
 # Session State
 # if 'update_db' not in st.session_state:
