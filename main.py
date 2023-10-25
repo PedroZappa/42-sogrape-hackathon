@@ -6,7 +6,7 @@
 #    By: passunca <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/24 08:48:10 by passunca          #+#    #+#              #
-#    Updated: 2023/10/24 20:18:34 by zedr0            ###   ########.fr        #
+#    Updated: 2023/10/25 09:24:06 by passunca         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,11 @@ stores_location = df["Location"].unique()
 
 # Init currency converter
 c = CurrencyRates()
+
+# Session State
+if 'update_db' not in st.session_state:
+    st.session_state.update_db = False
+
 
 # App Header
 st.header("Hack'a'Wine Dashboard 🍷")
@@ -75,16 +80,18 @@ with st.sidebar:
     # Price Filter
     filtered_df = filtered_df[(filtered_df['Price'] >= selected_price_range[0]) & (filtered_df['Price'] <= selected_price_range[1])]
 
+
 # Scrapper TAB
 with scrapper_tab:
+    st.button("Update DB 🔄", on_click=st.session_state.update_db)
     # Left column
     with scrapper_col1:
         # Prices Charts
         with st.expander("Price Graphs 📊"):
-            st.write("Average Price by Store 🪙")
-            st.bar_chart(average_prices_df, x="Store Name", y="Price")
             st.write("Prices by Location 📍")
             st.bar_chart(filtered_df, x="Price", y="Location")
+            st.write("Average Price by Store 🪙")
+            st.bar_chart(average_prices_df, x="Store Name", y="Price")
     # Right column
     with scrapper_col2:
             # Capacity Chart
