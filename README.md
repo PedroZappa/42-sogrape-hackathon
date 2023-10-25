@@ -7,7 +7,7 @@
 
 # About
 
-- `Hack'a'Wine` is a Data Visualization app that allows users to explore and filter through wine prices over a range of brands on sale on several online and retail stores.
+- `Hack'a'Wine` is a simple, reliable and easy to use `Data Visualization app` that allows users to filter through wine prices over a range of brands available on several online stores.
 
 # Usage
 
