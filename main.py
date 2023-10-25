@@ -6,7 +6,7 @@
 #    By: passunca <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/24 08:48:10 by passunca          #+#    #+#              #
-#    Updated: 2023/10/25 10:00:24 by passunca         ###   ########.fr        #
+#    Updated: 2023/10/25 10:08:46 by passunca         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ st.header("Hack'a'Wine Dashboard 🍷")
 scrapper_tab, analyser_tab = st.tabs(["Scrapper", "Analyser"])
 # Init Cols
 scrapper_col1, scrapper_col2 = scrapper_tab.columns(2)
-analyser_col1, anaylser_col2 = scrapper_tab.columns(2)
+analyser_col1, analyser_col2 = analyser_tab.columns(2)
 
 # Calculations
 # Get price average by store 
@@ -90,12 +90,10 @@ with st.sidebar:
 
 # Scrapper TAB
 with scrapper_tab:
-    # Raw Data Table
-    with st.expander("View Raw Data 🧾"):
-        st.dataframe(
-            filtered_df,
-            hide_index=True,
-        )
+    st.dataframe(
+        filtered_df,
+        hide_index=True,
+    )
 
 # Analyser TAB
 with analyser_tab:
@@ -103,23 +101,21 @@ with analyser_tab:
     with st.expander("Price Graphs 📊"):
         st.write("Prices by Location 📍")
         st.bar_chart(filtered_df, x="Price", y="Location")
-        st.write("Average Price by Store 🪙")
-        st.bar_chart(average_prices_df, x="Store Name", y="Price")
         st.write("Price by Harvest Year 🪙")
         st.bar_chart(filtered_df_discount, x="Harvest Year", y="Price")
+        st.write("Average Price by Store 🪙")
+        st.bar_chart(average_prices_df, x="Store Name", y="Price")
     # Left column
-    with scrapper_col1:
+    with analyser_col1:
         with st.expander("Discount Graphs 📊"):
             # Discount Charts
             st.write("Discounts by Store 🪙")
             st.bar_chart(filtered_df, x="Store Name", y="Discount")
-
     # Right column
-    with scrapper_col2:
+    with analyser_col2:
             # Capacity Chart
         with st.expander("Capacity Graphs 📊"):
             st.write("Capacity Overview")
             st.bar_chart(filtered_df, x="Capacity", y="Store Name")
     
-    st.area_chart(df, y="Price")
 
