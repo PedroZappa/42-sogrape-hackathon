@@ -6,7 +6,7 @@
 #    By: passunca <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/24 08:48:10 by passunca          #+#    #+#              #
-#    Updated: 2023/10/25 13:29:50 by passunca         ###   ########.fr        #
+#    Updated: 2023/10/25 14:17:09 by passunca         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,11 +60,11 @@ with st.sidebar:
     #     key="capacity-slider"
     # )
 
-    selected_date_range = st.slider(
-        "by Harvest Date ⏲", 
-        value=(int(df["harvest_year"].min()), int(df["harvest_year"].max())),
-        key="harvest-date-slider" 
-    )
+    # selected_date_range = st.slider(
+    #     "by Harvest Date ⏲", 
+    #     value=(int(df["harvest_year"].min()), int(df["harvest_year"].max())),
+    #     key="harvest-date-slider" 
+    # )
 
     selected_price_range = st.slider(
         "by Price 💰",
@@ -91,7 +91,7 @@ with st.sidebar:
     #     filtered_df = filtered_df[(filtered_df['location'].isin(selected_capacity))]
 
     # Harvest Year Filter
-    filtered_df = filtered_df[(filtered_df['harvest_year'] >= selected_date_range[0]) & (filtered_df['harvest_year'] <= selected_date_range[1])]
+    # filtered_df = filtered_df[(filtered_df['harvest_year'] >= selected_date_range[0]) & (filtered_df['harvest_year'] <= selected_date_range[1])]
     # Price Filter
     filtered_df = filtered_df[(filtered_df['price'] >= selected_price_range[0]) & (filtered_df['price'] <= selected_price_range[1])]
     # Filtered Discount (show only True)
