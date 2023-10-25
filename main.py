@@ -6,7 +6,7 @@
 #    By: passunca <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/24 08:48:10 by passunca          #+#    #+#              #
-#    Updated: 2023/10/25 13:23:49 by passunca         ###   ########.fr        #
+#    Updated: 2023/10/25 13:29:50 by passunca         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,13 +52,14 @@ with st.sidebar:
     st.header("Filter Wine Data")
     selected_wine = st.multiselect('by Wine Name 🍷', df["wine_name"].unique())
     selected_store = st.multiselect('by Store 🏪', stores_list)
-    selected_capacity = st.slider(
-        'by Capacity 🧴', 
-        min_value=float(df["capacity"].min()),
-        max_value=float(df["capacity"].max()),
-        key="capacity-slider"
-    )
-    
+    # selected_capacity = st.slider(
+    #     'by Capacity 🧴', 
+    #     min_value=float(df["capacity"].min()),
+    #     max_value=float(df["capacity"].max()),
+    #     step=0.5,
+    #     key="capacity-slider"
+    # )
+
     selected_date_range = st.slider(
         "by Harvest Date ⏲", 
         value=(int(df["harvest_year"].min()), int(df["harvest_year"].max())),
@@ -85,8 +86,10 @@ with st.sidebar:
     if selected_store:  
         filtered_df = filtered_df[(filtered_df['store_name'].isin(selected_store))]
     # Capacity Filter
-    if selected_capacity:
-        filtered_df = filtered_df[(filtered_df['location'].isin(selected_capacity))]
+    # selected_capacity = [selected_capacity]
+    # if selected_capacity:
+    #     filtered_df = filtered_df[(filtered_df['location'].isin(selected_capacity))]
+
     # Harvest Year Filter
     filtered_df = filtered_df[(filtered_df['harvest_year'] >= selected_date_range[0]) & (filtered_df['harvest_year'] <= selected_date_range[1])]
     # Price Filter
