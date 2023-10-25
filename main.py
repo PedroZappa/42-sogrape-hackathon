@@ -6,7 +6,7 @@
 #    By: passunca <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/24 08:48:10 by passunca          #+#    #+#              #
-#    Updated: 2023/10/25 10:20:36 by passunca         ###   ########.fr        #
+#    Updated: 2023/10/25 10:23:45 by passunca         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -109,7 +109,7 @@ with analyser_tab:
     with analyser_col1:
         with st.expander("Discount Graphs 📊"):
             # Discount Charts
-            st.write("Discounts by Store 🪙")
+            st.write("Discounts by Store 📣")
             st.bar_chart(filtered_df, x="Store Name", y="Discount")
     # Right column
     with analyser_col2:
