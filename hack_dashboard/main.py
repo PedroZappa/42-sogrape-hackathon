@@ -6,16 +6,13 @@
 #    By: passunca <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/24 08:48:10 by passunca          #+#    #+#              #
-#    Updated: 2023/10/25 14:17:09 by passunca         ###   ########.fr        #
+#    Updated: 2023/10/25 15:00:21 by passunca         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 import streamlit as st
 import pandas as pd
 import datetime
-
-# Import DB
-# df = pd.read_csv("assets/sogrape.csv")
 
 # # DB Connection
 conn = st.experimental_connection('hackawine_db', type='sql')
@@ -24,9 +21,6 @@ df = conn.query('select * from hackawine_table')
 
 stores_list = df["store_name"].unique()
 capacity = df["capacity"].unique()
-# Session State
-# if 'update_db' not in st.session_state:
-#     st.session_state.update_db = False
 
 # App Header
 st.header("Hack'a'Wine Dashboard 🍷")
@@ -42,6 +36,10 @@ analyser_col1, analyser_col2 = analyser_tab.columns(2)
 average_prices = df.groupby('store_name')['price'].mean()
 # Convert Series into DataFrame
 average_prices_df = average_prices.reset_index()
+# Get average price by wine
+average_prices_by_wine = df.groupby('wine_name')['price'].mean()
+# Convert Series into dataframe
+average_prices_by_wine_df = average_prices_by_wine.reset_index()
 
 # Data
 with st.sidebar:
@@ -50,21 +48,8 @@ with st.sidebar:
         width=150
     )
     st.header("Filter Wine Data")
-    selected_wine = st.multiselect('by Wine Name 🍷', df["wine_name"].unique())
+    selected_wine = st.multiselect('by Wine Name 🍷', df["wine_name_mask"].unique())
     selected_store = st.multiselect('by Store 🏪', stores_list)
-    # selected_capacity = st.slider(
-    #     'by Capacity 🧴', 
-    #     min_value=float(df["capacity"].min()),
-    #     max_value=float(df["capacity"].max()),
-    #     step=0.5,
-    #     key="capacity-slider"
-    # )
-
-    # selected_date_range = st.slider(
-    #     "by Harvest Date ⏲", 
-    #     value=(int(df["harvest_year"].min()), int(df["harvest_year"].max())),
-    #     key="harvest-date-slider" 
-    # )
 
     selected_price_range = st.slider(
         "by Price 💰",
@@ -81,18 +66,10 @@ with st.sidebar:
     filtered_df = df
     # Wine Filter
     if selected_wine:
-        filtered_df = filtered_df[(filtered_df['wine_name'].isin(selected_wine))]
+        filtered_df = filtered_df[(filtered_df['wine_name_mask'].isin(selected_wine))]
     # Store Filter
     if selected_store:  
         filtered_df = filtered_df[(filtered_df['store_name'].isin(selected_store))]
-    # Capacity Filter
-    # selected_capacity = [selected_capacity]
-    # if selected_capacity:
-    #     filtered_df = filtered_df[(filtered_df['location'].isin(selected_capacity))]
-
-    # Harvest Year Filter
-    # filtered_df = filtered_df[(filtered_df['harvest_year'] >= selected_date_range[0]) & (filtered_df['harvest_year'] <= selected_date_range[1])]
-    # Price Filter
     filtered_df = filtered_df[(filtered_df['price'] >= selected_price_range[0]) & (filtered_df['price'] <= selected_price_range[1])]
     # Filtered Discount (show only True)
     discount_true = filtered_df['discount'] == 1
@@ -112,9 +89,7 @@ with analyser_tab:
     with st.expander("Price Graphs 📊"):
         st.write("Prices by Location 📍")
         st.bar_chart(filtered_df, x="price", y="location")
-        st.write("Price by Harvest Year 🪙")
-        st.bar_chart(filtered_df_discount, x="harvest_year", y="price")
-        st.write("Average Price by Store 🪙")
+        st.write("Price by Wine Name 🪙")
         st.bar_chart(average_prices_df, x="store_name", y="price")
     # Left column
     with analyser_col1:
