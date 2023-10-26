@@ -13,27 +13,27 @@ Table of Contents
 # Usage
 
 1. Clone repo
-```
+```shell
 git clone <repo-url>
 ```
 
 2. `cd` into the project folder and create a virtual environment
-```
+```shell
 python -m venv .venv
 ```
 
 3. Activate the virtual environment
-```
+```shell
 source <env-name>/bin/activate
 ```
 
 4. Install frontend dependencies
-```
+```shell
 pip install -r hack_dashboard/requirements.txt
 ```
 
 5. Run Streamlit app
-```
+```shell
 cd hack_dashboard
 streamlit run main.py
 ```
