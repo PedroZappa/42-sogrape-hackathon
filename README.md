@@ -40,9 +40,11 @@ streamlit run main.py
 
 # Dependencies
 
-- Streamlit (UI)
-- pandas (Table Manipulation)
-- datetime (Datetime Information)
+- (Streamlit)[https://streamlit.io/]
+- (pandas)[https://pandas.pydata.org/docs/]
+- (SQLAlchemy)[https://www.sqlalchemy.org/]
+- (BeautifulSoup)[https://www.crummy.com/software/BeautifulSoup/]
+- (Requests)[https://docs.python-requests.org/en/latest/]
 
 # Acknowledgements 
 
