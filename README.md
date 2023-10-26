@@ -1,4 +1,4 @@
-# Sogrape-Hackathon
+# 42/Sogrape Hackathon
 
 # Table of Contents
 - [About](#about)
@@ -8,7 +8,7 @@
 
 # About
 
-`Hack'a'Wine` is a simple, reliable and easy to use `Data Visualization app` that allows users to filter through wine prices over a range of brands available on several online stores.
+`Hack'a'Wine` is a simple, reliable and easy to use `Data Visualization app` that allows users to filter through wine prices over a range of brands available on several online stores. This implementation was the result of 3 days of work during 42/Sogrape Hackathon 2023.
 
 # Usage
 
