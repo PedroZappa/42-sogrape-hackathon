@@ -1,6 +1,6 @@
 # 42/Sogrape Hackathon
 
-# Table of Contents
+Table of Contents
 - [About](#about)
 - [Usage](#usage)
 - [Dependencies](#dependencies)
