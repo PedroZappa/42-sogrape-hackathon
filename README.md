@@ -40,11 +40,11 @@ streamlit run main.py
 
 # Dependencies
 
-- (Streamlit)[https://streamlit.io/]
-- (pandas)[https://pandas.pydata.org/docs/]
-- (SQLAlchemy)[https://www.sqlalchemy.org/]
-- (BeautifulSoup)[https://www.crummy.com/software/BeautifulSoup/]
-- (Requests)[https://docs.python-requests.org/en/latest/]
+- [Streamlit](https://streamlit.io/)
+- [pandas](https://pandas.pydata.org/docs/)
+- [SQLAlchemy](https://www.sqlalchemy.org/)
+- [BeautifulSoup](https://www.crummy.com/software/BeautifulSoup/)
+- [Requests](https://docs.python-requests.org/en/latest/)
 
 # Acknowledgements 
 
