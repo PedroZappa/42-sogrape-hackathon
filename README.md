@@ -4,10 +4,11 @@
 - [About](#about)
 - [Usage](#usage)
 - [Dependencies](#dependencies)
+- [Acknowledgements](#acknowledgements)
 
 # About
 
-- `Hack'a'Wine` is a simple, reliable and easy to use `Data Visualization app` that allows users to filter through wine prices over a range of brands available on several online stores.
+`Hack'a'Wine` is a simple, reliable and easy to use `Data Visualization app` that allows users to filter through wine prices over a range of brands available on several online stores.
 
 # Usage
 
@@ -43,4 +44,8 @@ streamlit run main.py
 - pandas (Table Manipulation)
 - datetime (Datetime Information)
 
+# Acknowledgements 
 
+This code base was developed by Team 1 for Sogrape's Hackathon 2023 at 42 school, by the following members (by 42 student ID):
+- passunca
+- amenses-
