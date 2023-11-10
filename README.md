@@ -14,7 +14,7 @@ Table of Contents
 
 1. Clone repo
 ```shell
-git clone <repo-url>
+git clone git@github.com:PedroZappa/42-sogrape-hackathon.git
 ```
 
 2. `cd` into the project folder and create a virtual environment
